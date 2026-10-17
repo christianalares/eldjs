@@ -10,7 +10,7 @@ import {
 
 test('middleware composes dependencies, inherited routes and method hooks once per request', async () => {
   const calls: string[] = []
-  const shared = createMiddleware().server(async ({ next }) => {
+  const shared = createMiddleware().handler(async ({ next }) => {
     calls.push('shared:before')
     const result = await next({ context: { user: 'ada' } })
     calls.push('shared:after')
@@ -18,13 +18,13 @@ test('middleware composes dependencies, inherited routes and method hooks once p
   })
   const auth = createMiddleware()
     .middleware([shared])
-    .server(async ({ next, context }) => {
+    .handler(async ({ next, context }) => {
       calls.push(`auth:${context.user}`)
       return next({ context: { role: 'admin' as const } })
     })
   const method = createMiddleware()
     .middleware([auth])
-    .server(({ next, context }) => {
+    .handler(({ next, context }) => {
       calls.push(`method:${context.role}`)
       return next()
     })
@@ -71,7 +71,7 @@ test('middleware composes dependencies, inherited routes and method hooks once p
 })
 
 test('global middleware wraps not-found responses and can short-circuit', async () => {
-  const middleware = createMiddleware().server(async ({ request, next }) => {
+  const middleware = createMiddleware().handler(async ({ request, next }) => {
     if (request.headers.has('x-stop'))
       return new Response('stopped', { status: 403 })
     const result = await next()

@@ -93,7 +93,7 @@ export function createApp<
         return { response, context }
       }
       let called = false
-      const result = await current.options.server({
+      const result = await current.options.handler({
         request: c.req.raw,
         pathname,
         context,

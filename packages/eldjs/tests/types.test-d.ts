@@ -2,7 +2,7 @@ import { expectTypeOf } from 'vitest'
 import { z } from 'zod'
 import { createHandler, createMiddleware, createRoute } from '../src/index.js'
 
-const auth = createMiddleware().server(({ next }) =>
+const auth = createMiddleware().handler(({ next }) =>
   next({ context: { user: { id: 'u1' } } }),
 )
 const extracted = createHandler({
@@ -38,7 +38,7 @@ export const typedRoute = createRoute('/users/$id')({
     }),
 })
 
-const locale = createMiddleware().server(({ next }) =>
+const locale = createMiddleware().handler(({ next }) =>
   next({ context: { locale: 'en' as const } }),
 )
 createRoute('/articles/$slug')({

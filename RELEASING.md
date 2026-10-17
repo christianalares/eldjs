@@ -2,7 +2,7 @@
 
 The public packages are `@eldjs/core` (runtime) and `@eldjs/dev` (development tooling). Both belong to the `eldjs` npm organization. The monorepo root and example app are private packages.
 
-The initial release is `0.1.0`, tagged `next`. Eld is experimental; an install must opt into that tag:
+The current preview release is `0.2.0`, tagged `next`. Eld is experimental; an install must opt into that tag:
 
 ```sh
 pnpm add @eldjs/core@next hono
@@ -30,11 +30,11 @@ pnpm login --registry=https://registry.npmjs.org/
 pnpm whoami
 pnpm --dir packages/eldjs publish --access public --tag next
 pnpm --dir packages/dev publish --access public --tag next
-pnpm view @eldjs/core@0.1.0 version dist-tags --json
-pnpm view @eldjs/dev@0.1.0 version dist-tags --json
+pnpm view @eldjs/core@0.2.0 version dist-tags --json
+pnpm view @eldjs/dev@0.2.0 version dist-tags --json
 ```
 
-Publish the runtime first. If publication is interrupted, check the registry before retrying: an accepted package version cannot be overwritten. Each release needs a new version. Replace `0.1.0` in the verification commands for subsequent releases.
+Publish the runtime first. If publication is interrupted, check the registry before retrying: an accepted package version cannot be overwritten. Each release needs a new version. Replace `0.2.0` in the verification commands for subsequent releases.
 
 npm scans new uploads before making them installable. A successful publish can therefore be followed by a temporary 404 from registry reads or installs. Wait for both versions and their tarballs to become available; do not republish an accepted version to resolve this delay. See [npm's publication-scanning guidance](https://github.blog/changelog/2026-07-28-npm-publish-time-malware-scanning-and-dual-use-metadata/).
 

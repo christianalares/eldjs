@@ -21,13 +21,13 @@ test('Vite serves new, edited, renamed and deleted route files without restartin
     )
     const initialRoutes: Record<string, string> = {
       '_private.ts':
-        "import { createFileRoute, createMiddleware } from '@eldjs/core'; const auth = createMiddleware().server(({ request, next }) => request.headers.has('authorization') ? next() : new Response('Unauthorized', { status: 401 })); export const Route = createFileRoute('/_private')({ middleware: [auth] })",
+        "import { createFileRoute, createMiddleware } from '@eldjs/core'; const auth = createMiddleware().handler(({ request, next }) => request.headers.has('authorization') ? next() : new Response('Unauthorized', { status: 401 })); export const Route = createFileRoute('/_private')({ middleware: [auth] })",
       '_private.me.ts':
         "import { createFileRoute } from '@eldjs/core'; export const Route = createFileRoute('/_private/me')({ handlers: { GET: ({ c }) => c.json({ private: true }) } })",
       '(meta).info.ts':
         "import { createFileRoute } from '@eldjs/core'; export const Route = createFileRoute('/(meta)/info')({ handlers: { GET: ({ c }) => c.text('info') } })",
       'teams.ts':
-        "import { createFileRoute, createMiddleware } from '@eldjs/core'; const scope = createMiddleware().server(({ next }) => next({ context: { scope: 'team' } })); export const Route = createFileRoute('/teams')({ middleware: [scope] })",
+        "import { createFileRoute, createMiddleware } from '@eldjs/core'; const scope = createMiddleware().handler(({ next }) => next({ context: { scope: 'team' } })); export const Route = createFileRoute('/teams')({ middleware: [scope] })",
       'teams.$id.ts':
         "import { createFileRoute } from '@eldjs/core'; export const Route = createFileRoute('/teams/$id')({ handlers: { GET: ({ c, context, params }) => c.json({ scope: context.scope, id: params.id }) } })",
       'teams_.$id.audit.ts':

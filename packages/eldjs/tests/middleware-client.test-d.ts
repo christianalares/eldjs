@@ -7,19 +7,19 @@ import {
   createRoute,
 } from '../src/index.js'
 
-const unavailable = createMiddleware().server(({ c, next }) => {
+const unavailable = createMiddleware().handler(({ c, next }) => {
   if (c.req.header('x-unavailable'))
     return c.json({ error: 'Unavailable' }, 503)
   return next()
 })
-const auth = createMiddleware().server(({ c, next }) => {
+const auth = createMiddleware().handler(({ c, next }) => {
   if (!c.req.header('authorization'))
     return c.json({ error: 'Sign in required' }, 401)
   return next({ context: { userId: 'user-1' } })
 })
 const permission = createMiddleware()
   .middleware([auth])
-  .server(({ c, context, next }) => {
+  .handler(({ c, context, next }) => {
     if (context.userId !== 'admin') return c.json({ error: 'Forbidden' }, 403)
     return next()
   })

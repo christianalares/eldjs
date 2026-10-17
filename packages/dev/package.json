@@ -1,6 +1,6 @@
 {
   "name": "@eldjs/dev",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Route generation, Vite integration, and CLI for Eld APIs",
   "type": "module",
   "license": "MIT",
@@ -65,7 +65,7 @@
     "zod": "^4.6.7"
   },
   "peerDependencies": {
-    "@eldjs/core": "^0.1.0",
+    "@eldjs/core": "^0.2.0",
     "vite": ">=6"
   },
   "peerDependenciesMeta": {

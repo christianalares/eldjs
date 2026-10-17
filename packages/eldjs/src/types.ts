@@ -164,7 +164,7 @@ export interface Middleware<C = {}, R extends Response = Response> {
   readonly '~response'?: R
   readonly options: {
     middleware: readonly AnyMiddleware[]
-    server: (
+    handler: (
       options: MiddlewareContext<any>,
     ) => MaybePromise<Response | MiddlewareResult<any>>
   }

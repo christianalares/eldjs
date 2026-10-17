@@ -1,6 +1,6 @@
 {
   "name": "@eldjs/core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Typed file-based APIs with Hono, Standard Schema, and TanStack routing conventions",
   "type": "module",
   "license": "MIT",

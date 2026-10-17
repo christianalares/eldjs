@@ -20,7 +20,7 @@ test('an API route returns JSON through a Hono app', async () => {
 })
 
 test('an extracted handler validates async JSON and receives explicit middleware context', async () => {
-  const auth = createMiddleware().server(async ({ request, next }) => {
+  const auth = createMiddleware().handler(async ({ request, next }) => {
     if (!request.headers.has('authorization'))
       return new Response('Unauthorized', { status: 401 })
     const result = await next({ context: { user: { id: 'ada' } } })

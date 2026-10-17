@@ -20,13 +20,13 @@ export function createMiddleware<const M extends readonly AnyMiddleware[] = []>(
     middleware<const Next extends readonly AnyMiddleware[]>(middleware: Next) {
       return createMiddleware(middleware)
     },
-    server<R extends MaybePromise<Response | MiddlewareResult<any>>>(
-      server: (options: MiddlewareContext<MiddlewareContexts<M>>) => R,
+    handler<R extends MaybePromise<Response | MiddlewareResult<any>>>(
+      handler: (options: MiddlewareContext<MiddlewareContexts<M>>) => R,
     ): Middleware<
       Assign<MiddlewareContexts<M>, ResultContext<R>>,
       Extract<Awaited<R>, Response> | MiddlewareResponses<M>
     > {
-      return { options: { middleware: dependencies ?? [], server } }
+      return { options: { middleware: dependencies ?? [], handler } }
     },
   }
 }

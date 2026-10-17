@@ -173,7 +173,7 @@ Middleware lives wherever you choose. Attach it to the app, root route, a parent
 ```ts
 import { createMiddleware } from '@eldjs/core'
 
-export const requireUser = createMiddleware().server(({ request, next }) => {
+export const requireUser = createMiddleware().handler(({ request, next }) => {
   if (request.headers.get('authorization') !== 'Bearer demo') {
     return new Response('Unauthorized', { status: 401 })
   }
@@ -182,7 +182,7 @@ export const requireUser = createMiddleware().server(({ request, next }) => {
 
 export const audit = createMiddleware()
   .middleware([requireUser])
-  .server(async ({ context, next }) => {
+  .handler(async ({ context, next }) => {
     const result = await next({ context: { actorId: context.user.id } })
     result.response.headers.set('x-audited', 'yes')
     return result
