@@ -2,11 +2,20 @@
 
 File-based APIs with Hono, TanStack routing conventions, and Standard Schema validation. Route files stay small: handlers, schemas, and middleware can live in ordinary imported modules.
 
-Eld is an experimental 0.x project. The public API may change between minor releases. The first release is being prepared as `0.1.0` on npm's `next` tag.
+Eld is an experimental 0.x project. The public API may change between minor releases. Preview releases use npm's `next` tag.
 
 The route generator and matcher are adapted from TanStack Router's MIT-licensed source. The HTTP runtime, validation layer, handler helpers, and Hono integration are Eld's. There is no React or page router in the request runtime. See the [runtime notices](packages/eldjs/THIRD_PARTY_NOTICES.md) and [tooling notices](packages/dev/THIRD_PARTY_NOTICES.md) for the pinned upstream revision.
 
-## Try it
+## Install the preview
+
+```sh
+pnpm add @eldjs/core@next hono
+pnpm add -D @eldjs/dev@next
+```
+
+Import runtime helpers from `@eldjs/core`. Install your chosen Standard Schema library separately, such as `pnpm add zod`. The `eld` CLI generates and watches route files; project scaffolding is not available yet. See the route and app examples below to set up an API.
+
+## Run the example from source
 
 Requires Node 20.19+ (tested on Node 24) and pnpm 12.6.0, pinned in the root `packageManager` field.
 
@@ -51,7 +60,7 @@ Install `@eldjs/dev` as a development dependency. It owns generation, file watch
 
 Build with development dependencies available, then deploy the built API with its production dependencies (for example, a fresh `pnpm install --prod --frozen-lockfile` in the deployment stage). Generation and the development server do not run in production. This separation reduces production installs; tooling was already excluded from the bundled request handler.
 
-To try the current source in another project before publication, create local tarballs:
+To try local changes in another project, create tarballs:
 
 ```sh
 # In this repository; packing builds each package.

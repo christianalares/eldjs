@@ -36,6 +36,8 @@ pnpm view @eldjs/dev@0.1.0 version dist-tags --json
 
 Publish the runtime first. If publication is interrupted, check the registry before retrying: an accepted package version cannot be overwritten. Each release needs a new version. Replace `0.1.0` in the verification commands for subsequent releases.
 
+npm scans new uploads before making them installable. A successful publish can therefore be followed by a temporary 404 from registry reads or installs. Wait for both versions and their tarballs to become available; do not republish an accepted version to resolve this delay. See [npm's publication-scanning guidance](https://github.blog/changelog/2026-07-28-npm-publish-time-malware-scanning-and-dual-use-metadata/).
+
 After both versions are installable, create a matching Git tag and GitHub prerelease, and verify a fresh consuming project can install from the registry. Keep the README's installation instructions aligned with the published tag.
 
 ## Later CI publishing
