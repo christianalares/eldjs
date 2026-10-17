@@ -1,0 +1,6 @@
+import { createApp } from 'eldjs'
+import { routeTree } from './routeTree.gen.js'
+
+const app = createApp({ routeTree })
+export type App = typeof app
+export default app

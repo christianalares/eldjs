@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.tanstack/
+.eld/
+coverage/
+*.tgz
+
+.turbo/
+.eld-vite-test-*/
+.env
+.env.*
+!.env.example
+.DS_Store
+.local/
+pnpm-publish-summary.json

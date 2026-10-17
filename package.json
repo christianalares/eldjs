@@ -1,0 +1,24 @@
+{
+  "name": "eldjs-monorepo",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.6.0",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "check": "turbo run build typecheck test",
+    "generate:example": "turbo run generate --filter=@eldjs/example-api",
+    "dev:example": "turbo run dev --filter=@eldjs/example-api --filter=eldjs --filter=@eldjs/dev",
+    "build:example": "turbo run build --filter=@eldjs/example-api",
+    "check:packages": "node scripts/check-packages.mjs"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.6",
+    "turbo": "2.11.9"
+  }
+}

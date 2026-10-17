@@ -1,0 +1,8 @@
+node_modules
+dist
+packages/eldjs/src/vendor
+packages/dev/src/vendor
+**/routeTree.gen.ts
+docs/research
+pnpm-lock.yaml
+.turbo
