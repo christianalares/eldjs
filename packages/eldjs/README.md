@@ -2,8 +2,15 @@
 
 Typed file-based APIs with Hono, Standard Schema validation, and TanStack routing conventions.
 
+Experimental 0.x preview; the API may change between minor releases. Install from the `next` tag:
+
+```sh
+pnpm add @eldjs/core@next hono
+pnpm add -D @eldjs/dev@next
+```
+
 ```ts
-import { createFileRoute, createHandler } from 'eldjs'
+import { createFileRoute, createHandler } from '@eldjs/core'
 import { z } from 'zod'
 
 // This definition can live in a separate module.
@@ -20,11 +27,11 @@ export const Route = createFileRoute('/posts')({
 
 Export a `createRootRoute()` as `Route` from `src/routes/__root.ts`, generate the route tree with `pnpm exec eld generate`, and pass it to `createApp({ routeTree })`. The result is a Hono app with a Fetch handler and typed Hono client schema.
 
-Install `eldjs` and `hono` as application dependencies, and `@eldjs/dev` as a development dependency. Hono is a peer dependency so your app and Eld share the same installation. Install your chosen schema library as an application dependency when using validation; Eld's runtime does not require Zod.
+Install `@eldjs/core` and `hono` as application dependencies, and `@eldjs/dev` as a development dependency. Hono is a peer dependency so your app and Eld share the same installation. Install your chosen schema library as an application dependency when using validation; Eld's runtime does not require Zod.
 
 Use `eld()` from `@eldjs/dev/vite` with Vite, or `pnpm exec eld watch` for standalone generation. Programmatic generation is available from `@eldjs/dev`. The `eld` executable belongs to that tooling package. Middleware is explicit and imported; handlers can use any Standard Schema v1 implementation for params, query, JSON, form, and header validation.
 
-Build with the development dependencies installed, then deploy the compiled application with only production dependencies. No generator, watcher, CLI, or development server is needed to handle requests. The former `eldjs/vite` and `eldjs/generator` exports have moved to `@eldjs/dev/vite` and `@eldjs/dev`, respectively.
+Build with the development dependencies installed, then deploy the compiled application with only production dependencies. No generator, watcher, CLI, or development server is needed to handle requests. Runtime imports use `@eldjs/core`. The former `eldjs/vite` and `eldjs/generator` exports have moved to `@eldjs/dev/vite` and `@eldjs/dev`, respectively.
 
 `GET`, `HEAD`, and `ANY` reject JSON/form validators. Attach body validators to explicit `POST`, `PUT`, `PATCH`, `DELETE`, or `OPTIONS` handlers; those can also validate query parameters. The check applies to inline and extracted handlers, both in TypeScript and when routes are created at runtime.
 

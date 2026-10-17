@@ -94,7 +94,7 @@ try {
         private: true,
         type: 'module',
         dependencies: {
-          eldjs: `file:${runtimeTarball}`,
+          '@eldjs/core': `file:${runtimeTarball}`,
           hono: '4.13.7', // The oldest declared peer version; the workspace tests 4.13.13.
           valibot: '1.5.0', // Prove that runtime validation does not require Zod.
         },
@@ -132,14 +132,14 @@ try {
   await file(
     'src/routes/__root.ts',
     `
-    import { createRootRoute } from 'eldjs'
+    import { createRootRoute } from '@eldjs/core'
     export const Route = createRootRoute()
   `,
   )
   await file(
     'src/routes/items.$id.ts',
     String.raw`
-    import { createFileRoute } from 'eldjs'
+    import { createFileRoute } from '@eldjs/core'
     import * as v from 'valibot'
     import { createItem } from '../handlers.js'
     export const Route = createFileRoute('/stale')({
@@ -159,7 +159,7 @@ try {
   await file(
     'src/handlers.ts',
     `
-    import { createHandler } from 'eldjs'
+    import { createHandler } from '@eldjs/core'
     import * as v from 'valibot'
     export const createItem = createHandler({
       validate: { json: v.object({ title: v.pipe(v.string(), v.trim(), v.minLength(1)) }) },
@@ -171,7 +171,7 @@ try {
     'src/app.ts',
     `
     import { Hono } from 'hono'
-    import { createApp } from 'eldjs'
+    import { createApp } from '@eldjs/core'
     import { routeTree } from './routeTree.gen.js'
     const hono = new Hono()
     hono.use('*', async (c, next) => { await next(); c.header('x-native-hono', 'yes') })
@@ -258,11 +258,13 @@ try {
   )
   assert.equal(existsSync(path.join(consumer, 'node_modules/.bin/eld')), false)
   assert.equal(
-    existsSync(path.join(consumer, 'node_modules/eldjs/dist/cli.js')),
+    existsSync(path.join(consumer, 'node_modules/@eldjs/core/dist/cli.js')),
     false,
   )
   assert.equal(
-    existsSync(path.join(consumer, 'node_modules/eldjs/dist/vendor/generator')),
+    existsSync(
+      path.join(consumer, 'node_modules/@eldjs/core/dist/vendor/generator'),
+    ),
     false,
   )
   const [installed] = JSON.parse(
@@ -279,14 +281,14 @@ try {
   // Valibot keeps its optional TypeScript peer when it was resolved in the build
   // lockfile. That dependency belongs to the chosen schema library, not Eld.
   assert.deepEqual([...names].sort(), [
+    '@eldjs/core',
     '@standard-schema/spec',
-    'eldjs',
     'hono',
     'typescript',
     'valibot',
   ])
   assert.deepEqual(
-    Object.keys(installed.dependencies.eldjs.dependencies).sort(),
+    Object.keys(installed.dependencies['@eldjs/core'].dependencies).sort(),
     ['@standard-schema/spec', 'hono'],
   )
   console.log(

@@ -22,7 +22,7 @@
       "cache": false,
       "persistent": true
     },
-    "eldjs#dev": {
+    "@eldjs/core#dev": {
       "dependsOn": ["build"],
       "cache": false,
       "persistent": true

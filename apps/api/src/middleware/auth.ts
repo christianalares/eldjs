@@ -1,4 +1,4 @@
-import { createMiddleware } from 'eldjs'
+import { createMiddleware } from '@eldjs/core'
 
 // Demo authentication only. Replace with session/token verification in a real API.
 export const requireUser = createMiddleware().server(({ request, next }) => {

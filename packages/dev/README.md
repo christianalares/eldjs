@@ -1,6 +1,13 @@
 # Eld development tooling
 
-Route generation, watching, the `eld` CLI, and a Vite plugin for Eld APIs. Install `@eldjs/dev` as a development dependency alongside the `eldjs` runtime. Applications import routes, handlers, and middleware from `eldjs`.
+Route generation, watching, the `eld` CLI, and a Vite plugin for Eld APIs. Install `@eldjs/dev` as a development dependency alongside the `@eldjs/core` runtime. Applications import routes, handlers, and middleware from `@eldjs/core`.
+
+Experimental 0.x preview; install from the `next` tag:
+
+```sh
+pnpm add @eldjs/core@next hono
+pnpm add -D @eldjs/dev@next
+```
 
 Export `Route = createRootRoute()` from `src/routes/__root.ts`, then generate the route graph:
 
@@ -36,6 +43,6 @@ const watcher = await watchRoutes({ root: process.cwd() })
 await watcher.close()
 ```
 
-Generated route files continue to import from `eldjs`. This package and its compiler dependencies are only needed while generating and building the app, and can be omitted from production installs. The CLI currently offers generation and watching, not project scaffolding.
+Generated route files continue to import from `@eldjs/core`. This package and its compiler dependencies are only needed while generating and building the app, and can be omitted from production installs. The CLI currently offers generation and watching, not project scaffolding.
 
 The generator is adapted from TanStack Router's MIT-licensed source. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for provenance and the upstream license.

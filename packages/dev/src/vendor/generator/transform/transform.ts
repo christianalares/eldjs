@@ -120,7 +120,7 @@ export function transform({
     routeCall.routeIdArg.start!,
     routeCall.routeIdArg.end!,
   )
-  const targetModule = ctx.target === 'api' ? 'eldjs' : `@tanstack/${ctx.target}-router`
+  const targetModule = ctx.target === 'api' ? '@eldjs/core' : `@tanstack/${ctx.target}-router`
   const imports = parseTargetImports(ast.program.body, source, targetModule)
 
   const s = new MagicString(source)

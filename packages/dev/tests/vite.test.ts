@@ -13,25 +13,25 @@ test('Vite serves new, edited, renamed and deleted route files without restartin
     await mkdir(path.join(root, 'src/routes'), { recursive: true })
     await writeFile(
       path.join(root, 'src/routes/__root.ts'),
-      "import { createRootRoute } from 'eldjs'; export const Route = createRootRoute()",
+      "import { createRootRoute } from '@eldjs/core'; export const Route = createRootRoute()",
     )
     await writeFile(
       path.join(root, 'src/app.ts'),
-      "import { createApp } from 'eldjs'; import { routeTree } from './routeTree.gen.js'; export default createApp({ routeTree })",
+      "import { createApp } from '@eldjs/core'; import { routeTree } from './routeTree.gen.js'; export default createApp({ routeTree })",
     )
     const initialRoutes: Record<string, string> = {
       '_private.ts':
-        "import { createFileRoute, createMiddleware } from 'eldjs'; const auth = createMiddleware().server(({ request, next }) => request.headers.has('authorization') ? next() : new Response('Unauthorized', { status: 401 })); export const Route = createFileRoute('/_private')({ middleware: [auth] })",
+        "import { createFileRoute, createMiddleware } from '@eldjs/core'; const auth = createMiddleware().server(({ request, next }) => request.headers.has('authorization') ? next() : new Response('Unauthorized', { status: 401 })); export const Route = createFileRoute('/_private')({ middleware: [auth] })",
       '_private.me.ts':
-        "import { createFileRoute } from 'eldjs'; export const Route = createFileRoute('/_private/me')({ handlers: { GET: ({ c }) => c.json({ private: true }) } })",
+        "import { createFileRoute } from '@eldjs/core'; export const Route = createFileRoute('/_private/me')({ handlers: { GET: ({ c }) => c.json({ private: true }) } })",
       '(meta).info.ts':
-        "import { createFileRoute } from 'eldjs'; export const Route = createFileRoute('/(meta)/info')({ handlers: { GET: ({ c }) => c.text('info') } })",
+        "import { createFileRoute } from '@eldjs/core'; export const Route = createFileRoute('/(meta)/info')({ handlers: { GET: ({ c }) => c.text('info') } })",
       'teams.ts':
-        "import { createFileRoute, createMiddleware } from 'eldjs'; const scope = createMiddleware().server(({ next }) => next({ context: { scope: 'team' } })); export const Route = createFileRoute('/teams')({ middleware: [scope] })",
+        "import { createFileRoute, createMiddleware } from '@eldjs/core'; const scope = createMiddleware().server(({ next }) => next({ context: { scope: 'team' } })); export const Route = createFileRoute('/teams')({ middleware: [scope] })",
       'teams.$id.ts':
-        "import { createFileRoute } from 'eldjs'; export const Route = createFileRoute('/teams/$id')({ handlers: { GET: ({ c, context, params }) => c.json({ scope: context.scope, id: params.id }) } })",
+        "import { createFileRoute } from '@eldjs/core'; export const Route = createFileRoute('/teams/$id')({ handlers: { GET: ({ c, context, params }) => c.json({ scope: context.scope, id: params.id }) } })",
       'teams_.$id.audit.ts':
-        "import { createFileRoute } from 'eldjs'; export const Route = createFileRoute('/teams_/$id/audit')({ handlers: { GET: ({ c, context }) => c.json({ scope: context.scope ?? null }) } })",
+        "import { createFileRoute } from '@eldjs/core'; export const Route = createFileRoute('/teams_/$id/audit')({ handlers: { GET: ({ c, context }) => c.json({ scope: context.scope ?? null }) } })",
     }
     for (const [name, content] of Object.entries(initialRoutes))
       await writeFile(path.join(root, 'src/routes', name), content)
@@ -61,7 +61,7 @@ test('Vite serves new, edited, renamed and deleted route files without restartin
     })
     const routeFile = path.join(root, 'src/routes/hello.ts')
     const content = (value: string) =>
-      `import { createFileRoute } from 'eldjs'; export const Route = createFileRoute('/hello')({ handlers: { GET: ({ c }) => c.json({ value: '${value}' }) } })`
+      `import { createFileRoute } from '@eldjs/core'; export const Route = createFileRoute('/hello')({ handlers: { GET: ({ c }) => c.json({ value: '${value}' }) } })`
     expect((await fetch(`${url}/hello`)).status).toBe(404)
     await writeFile(routeFile, content('first'))
     await expect

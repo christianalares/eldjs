@@ -37,7 +37,7 @@ packages/dev/     # @eldjs/dev: generator, CLI, Vite plugin, and tooling tests
 apps/api/         # standalone API example and consumption tests
 ```
 
-The example declares `"eldjs": "workspace:*"` in `dependencies` and `"@eldjs/dev": "workspace:*"` in `devDependencies`. Route and handler imports use `eldjs`; the Vite plugin comes from `@eldjs/dev/vite`. It has its own dependencies and TypeScript configuration.
+The example declares `"@eldjs/core": "workspace:*"` in `dependencies` and `"@eldjs/dev": "workspace:*"` in `devDependencies`. Route and handler imports use `@eldjs/core`; the Vite plugin comes from `@eldjs/dev/vite`. It has its own dependencies and TypeScript configuration.
 
 Turborepo builds dependencies before tasks that consume them. `pnpm dev` starts both packages' TypeScript watchers and the example's Vite server after the initial builds. `pnpm check` builds and checks all workspace packages and runs their tests; build and verification results are cached in `.turbo`. Route generation always runs before the example's build, type check, or tests because it can rewrite route source files.
 
@@ -45,7 +45,7 @@ The root `pnpm-lock.yaml` is the only lockfile. Use `pnpm install --frozen-lockf
 
 ## Runtime and development dependencies
 
-An application needs `eldjs`, `hono`, and any schema library its routes use as production dependencies. Hono is a peer dependency of Eld, so the application supplies the shared Hono installation. Standard Schema's type definitions remain a small dependency of Eld; they add no JavaScript to the request runtime.
+An application needs `@eldjs/core`, `hono`, and any schema library its routes use as production dependencies. Hono is a peer dependency of Eld, so the application supplies the shared Hono installation. Standard Schema's type definitions remain a small dependency of Eld; they add no JavaScript to the request runtime.
 
 Install `@eldjs/dev` as a development dependency. It owns generation, file watching, the `eld` executable, and the Vite plugin, including their Babel, Prettier, Jiti, and Zod dependencies. Vite is optional: the CLI and programmatic generator work without it. Eld's runtime does not require Zod; an application using Valibot can deploy without Zod installed.
 
@@ -90,7 +90,7 @@ The generator watches route files, updates the `createFileRoute` path literal wh
 
 ```ts
 // src/routes/teams.$teamId.posts.ts
-import { createFileRoute } from 'eldjs'
+import { createFileRoute } from '@eldjs/core'
 import { z } from 'zod'
 import { requireUser } from '../middleware/auth.js'
 import { createPost } from '../handlers/create-post.js'
@@ -133,7 +133,7 @@ The exported `createHandler` infers its own schemas, middleware context, respons
 
 ```ts
 // src/handlers/create-post.ts
-import { createHandler } from 'eldjs'
+import { createHandler } from '@eldjs/core'
 import { z } from 'zod'
 import { requireUser } from '../middleware/auth.js'
 
@@ -162,7 +162,7 @@ An independent handler declares its dependencies explicitly. It cannot infer a f
 Middleware lives wherever you choose. Attach it to the app, root route, a parent route, a specific route, or one method. Dependency composition is explicit:
 
 ```ts
-import { createMiddleware } from 'eldjs'
+import { createMiddleware } from '@eldjs/core'
 
 export const requireUser = createMiddleware().server(({ request, next }) => {
   if (request.headers.get('authorization') !== 'Bearer demo') {
@@ -291,7 +291,7 @@ export default defineConfig({
 
 ```ts
 // src/app.ts
-import { createApp } from 'eldjs'
+import { createApp } from '@eldjs/core'
 import { routeTree } from './routeTree.gen.js'
 
 const app = createApp({ routeTree })
@@ -309,14 +309,14 @@ pnpm exec eld generate --root ./apps/api
 
 `eld.config.json` configures `routesDirectory`, `generatedRouteTree`, ignore patterns, or `virtualRouteConfig`. The same options can be passed to `eld({...})` or `generate`/`watchRoutes` from `@eldjs/dev`. Imports use `.js` extensions by default for NodeNext compatibility. Restart the dev server or watcher after changing `eld.config.json`.
 
-If migrating an existing Eld app, replace `eldjs/vite` with `@eldjs/dev/vite` and `eldjs/generator` with `@eldjs/dev`. The `eld` command now comes from `@eldjs/dev`; runtime imports and route files remain unchanged.
+If migrating an existing Eld app, replace `eldjs/vite` with `@eldjs/dev/vite` and `eldjs/generator` with `@eldjs/dev`. The `eld` command now comes from `@eldjs/dev`. Replace runtime imports from `eldjs` with `@eldjs/core` and regenerate the route tree.
 
 ## Hono and clients
 
 `createApp` returns a Hono app with `.fetch`, `.request`, and `.onError`. Supply `hono: yourApp` to install native Hono middleware first—for example CORS, body-size limits, or logging. Request handlers receive the Hono context as `c`, including bindings and streaming/response helpers. To type bindings, augment `Register`:
 
 ```ts
-declare module 'eldjs' {
+declare module '@eldjs/core' {
   interface Register {
     env: { Bindings: { API_KEY: string } }
   }
@@ -351,7 +351,7 @@ pnpm check                     # all builds, type checks, and integration tests
 pnpm check:packages            # external tarball consumer and production-only install
 pnpm build                     # build every workspace package
 pnpm build:example             # example plus its runtime and tooling dependencies
-pnpm --filter eldjs test        # runtime tests
+pnpm --filter @eldjs/core test        # runtime tests
 pnpm --filter @eldjs/dev test   # generator, watcher, and Vite tests
 pnpm --dir packages/eldjs pack  # local installable tarball; nothing is published
 pnpm --dir packages/dev pack    # local development-tooling tarball

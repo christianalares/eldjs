@@ -11,7 +11,7 @@ test('the standalone watcher generates new routes and recovers after invalid rou
     await mkdir(path.join(root, 'src/routes'), { recursive: true })
     await writeFile(
       path.join(root, 'src/routes/__root.ts'),
-      "import { createRootRoute } from 'eldjs'; export const Route = createRootRoute()",
+      "import { createRootRoute } from '@eldjs/core'; export const Route = createRootRoute()",
     )
     const errors: unknown[] = []
     watcher = await watchRoutes({ root }, (error) => errors.push(error))

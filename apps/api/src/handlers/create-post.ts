@@ -1,4 +1,4 @@
-import { createHandler } from 'eldjs'
+import { createHandler } from '@eldjs/core'
 import { z } from 'zod'
 import { requireUser } from '../middleware/auth.js'
 

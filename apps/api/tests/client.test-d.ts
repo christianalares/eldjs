@@ -9,7 +9,7 @@ demo.teams[':teamId'].posts.$post({
 })
 
 // Check the package declarations through the generated file-route registry.
-import { createFileRoute, createHandler } from 'eldjs'
+import { createFileRoute, createHandler } from '@eldjs/core'
 import { z } from 'zod'
 const jsonHandler = createHandler({
   validate: { json: z.object({ title: z.string() }) },

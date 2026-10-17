@@ -16,17 +16,17 @@ export function getTargetTemplate(_config: Config): TargetTemplate {
   const route: TargetTemplate['route'] = {
     template: () => '%%tsrImports%%\n\n%%tsrExportStart%%{ handlers: { GET: ({ c }) => c.json({ message: "Hello!" }) } }%%tsrExportEnd%%\n',
     imports: {
-      tsrImports: () => "import { createFileRoute } from 'eldjs'",
+      tsrImports: () => "import { createFileRoute } from '@eldjs/core'",
       tsrExportStart: (path) => `export const Route = createFileRoute(${JSON.stringify(path)})(`,
       tsrExportEnd: () => ')',
     },
   }
   return {
-    fullPkg: 'eldjs', subPkg: 'eldjs', route, lazyRoute: route,
+    fullPkg: '@eldjs/core', subPkg: '@eldjs/core', route, lazyRoute: route,
     rootRoute: {
       template: () => '%%tsrImports%%\n\n%%tsrExportStart%%{}%%tsrExportEnd%%\n',
       imports: {
-        tsrImports: () => "import { createRootRoute } from 'eldjs'",
+        tsrImports: () => "import { createRootRoute } from '@eldjs/core'",
         tsrExportStart: () => 'export const Route = createRootRoute(',
         tsrExportEnd: () => ')',
       },

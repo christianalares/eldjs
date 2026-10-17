@@ -1,4 +1,4 @@
-import { createFileRoute } from 'eldjs'
+import { createFileRoute } from '@eldjs/core'
 
 export const Route = createFileRoute('/')({
   handlers: {

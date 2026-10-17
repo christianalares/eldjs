@@ -1,22 +1,22 @@
 # Releasing Eld
 
-The public packages are `eldjs` (runtime) and `@eldjs/dev` (development tooling). The monorepo root and example app are private packages. `@eldjs/dev` belongs to the `eldjs` npm organization.
+The public packages are `@eldjs/core` (runtime) and `@eldjs/dev` (development tooling). Both belong to the `eldjs` npm organization. The monorepo root and example app are private packages.
 
 The initial release is `0.1.0`, tagged `next`. Eld is experimental; an install must opt into that tag:
 
 ```sh
-pnpm add eldjs@next hono
+pnpm add @eldjs/core@next hono
 pnpm add -D @eldjs/dev@next
 ```
 
 ## Prepare
 
-1. Update both package versions and the tooling package's `eldjs` peer range when needed. Update the lockfile with `pnpm install --lockfile-only`.
+1. Update both package versions and the tooling package's `@eldjs/core` peer range when needed. Update the lockfile with `pnpm install --lockfile-only`.
 2. Run `pnpm install --frozen-lockfile`, `pnpm check`, and `pnpm check:packages`.
 3. Review the package contents with the dry run below. Commit and push the reviewed source to `main`, and confirm GitHub CI passes.
 
 ```sh
-pnpm --filter eldjs --filter @eldjs/dev -r publish --dry-run --access public --tag next
+pnpm --filter @eldjs/core --filter @eldjs/dev -r publish --dry-run --access public --tag next
 ```
 
 The packed packages include built JavaScript, declarations, their mapped TypeScript sources, README, license, and third-party notices. The package check verifies these contents and installation outside this workspace. Do not publish local environment files, authentication configuration, or private integration notes.
@@ -30,7 +30,7 @@ pnpm login --registry=https://registry.npmjs.org/
 pnpm whoami
 pnpm --dir packages/eldjs publish --access public --tag next
 pnpm --dir packages/dev publish --access public --tag next
-pnpm view eldjs@0.1.0 version dist-tags --json
+pnpm view @eldjs/core@0.1.0 version dist-tags --json
 pnpm view @eldjs/dev@0.1.0 version dist-tags --json
 ```
 

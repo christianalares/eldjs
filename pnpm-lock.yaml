@@ -175,7 +175,7 @@ importers:
 
   apps/api:
     dependencies:
-      eldjs:
+      '@eldjs/core':
         specifier: workspace:*
         version: link:../../packages/eldjs
       hono:
@@ -231,15 +231,15 @@ importers:
         specifier: ^4.6.7
         version: 4.6.7
     devDependencies:
+      '@eldjs/core':
+        specifier: workspace:*
+        version: link:../eldjs
       '@hono/vite-dev-server':
         specifier: ^0.25.3
         version: 0.25.3(hono@4.13.13)
       '@types/node':
         specifier: ^22.0.0
         version: 22.20.5
-      eldjs:
-        specifier: workspace:*
-        version: link:../eldjs
       typescript:
         specifier: ~5.9.3
         version: 5.9.3

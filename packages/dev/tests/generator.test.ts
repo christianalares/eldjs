@@ -17,11 +17,11 @@ test('generation updates file identities and route types when endpoints are rena
     await mkdir(path.join(root, 'src/routes'), { recursive: true })
     await writeFile(
       path.join(root, 'src/routes/__root.ts'),
-      "import { createRootRoute } from 'eldjs'\nexport const Route = createRootRoute()\n",
+      "import { createRootRoute } from '@eldjs/core'\nexport const Route = createRootRoute()\n",
     )
     await writeFile(
       path.join(root, 'src/routes/users.$id.ts'),
-      "import { createFileRoute } from 'eldjs'\nexport const Route = createFileRoute('/stale')({ handlers: { GET: ({ c }) => c.json({ ok: true }) } })\n",
+      "import { createFileRoute } from '@eldjs/core'\nexport const Route = createFileRoute('/stale')({ handlers: { GET: ({ c }) => c.json({ ok: true }) } })\n",
     )
     await generate({ root })
     const endpoint = await readFile(
@@ -34,7 +34,7 @@ test('generation updates file identities and route types when endpoints are rena
       path.join(root, 'src/routeTree.gen.ts'),
       'utf8',
     )
-    expect(first).toContain("declare module 'eldjs'")
+    expect(first).toContain("declare module '@eldjs/core'")
     expect(first).toContain("fullPath: '/users/$id'")
     await rename(
       path.join(root, 'src/routes/users.$id.ts'),

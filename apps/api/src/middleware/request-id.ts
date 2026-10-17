@@ -1,4 +1,4 @@
-import { createMiddleware } from 'eldjs'
+import { createMiddleware } from '@eldjs/core'
 
 export const requestId = createMiddleware().server(async ({ next }) => {
   const id = crypto.randomUUID()

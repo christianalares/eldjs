@@ -59,7 +59,7 @@ export interface RootRouteChildren {
   TeamsTeamIdPostsRoute: typeof TeamsTeamIdPostsRoute
 }
 
-declare module 'eldjs' {
+declare module '@eldjs/core' {
   interface FileRoutesByPath {
     '/': {
       id: '/'

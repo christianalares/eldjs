@@ -1,4 +1,4 @@
-import { createFileRoute } from 'eldjs'
+import { createFileRoute } from '@eldjs/core'
 import { z } from 'zod'
 import { requireUser } from '../../../middleware/auth.js'
 import { createPost } from '../../../handlers/create-post.js'
