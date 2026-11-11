@@ -1,0 +1,10 @@
+Generated with the built-in image_gen tool, with transparent_background=true.
+
+Use case: logo-brand
+Asset type: standalone transparent logo symbol for the open-source TypeScript API library "eld" (Swedish for fire), built on Hono.
+Primary request: Design a single beautiful distinctive small flame mark. The flame curls inward in a bold rounded almost-lowercase-e silhouette, with a clean horizontal opening in the inner curl subtly suggesting the letter e. It should first read as a flame and second reveal the e. Scandinavian restraint, confident playful developer-tool identity.
+Style/medium: exceptionally clean flat vector-like logo art, crisp smooth curves, strong silhouette, generous negative space. One compact asymmetric flame leaning gently forward; a broad rounded base, one long tapered flame tip and a small counter-curve. Use a warm vivid ember-orange body with a golden-orange inner lick, at most two flat warm fire colors. Keep the design simple enough to recognize at 24 pixels.
+Composition/framing: ONE symbol centered on square canvas, occupying roughly 75% of the canvas height, generous clean transparent margin on all sides. Real transparent background.
+Text: none. Do not write eld or any other text.
+Constraints: original mark, balanced positive and negative space. This is a finished logo asset, not a mockup or a brand board.
+Avoid: copies of the Hono logo, generic fire emoji, literal letters pasted inside a flame, tiny details, extra sparks, gradients, glow, shadows, outlines, 3D, texture, mascots, eyes, background, watermark, multiple logos, logo variants, mockup objects.

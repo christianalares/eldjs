@@ -1,4 +1,13 @@
-# Eld
+<p align="center">
+  <img src="assets/eld-logo.png" alt="Eld: an orange flame curling into a lowercase e" width="128" height="128" />
+</p>
+
+<h1 align="center">eld</h1>
+
+<p align="center">
+  <strong>File-based APIs. Fueled by Hono.</strong><br />
+  <sub>Swedish for fire.</sub>
+</p>
 
 File-based APIs with Hono, TanStack routing conventions, and Standard Schema validation. Route files stay small: handlers, schemas, and middleware can live in ordinary imported modules.
 
